@@ -8,13 +8,13 @@
 }
 
 .section-wrapper {
-    min-width: 25%;
     display: flex;
     align-items: center;
 }
 
 ytd-macro-markers-list-item-renderer {
     flex-grow: 1;
+    width: 85%;
 }
 
 /* Default checkbox style */

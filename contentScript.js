@@ -29,6 +29,10 @@
         }
         processedSections.add(section);
 
+        // Remove section thumbnails with the ID "thumbnail"
+        const thumbnails = section.querySelector("#thumbnail");
+        thumbnails.remove();
+
         // Generates a key, so it could be saved further in local storage
         // currentVideo - id of video, being used to save for each video
         // Index - is section index
