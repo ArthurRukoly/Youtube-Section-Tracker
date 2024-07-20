@@ -1,54 +1,115 @@
-.container {
-  width: 280px;
-  color: #314d3e;
+:root {
+  --red-color: #FF0000;
+  --background-color: #0F0F0F;
+  --background-color-focus: #272727;
+  --main-color: #3EA6F4;
+  --main-color-darker: #263850;
 }
 
-.title {
-  font-size: 14px;
-  font-weight: bold;
-  padding: 8px;
-}
-
-.textbox {
-  width: 100%;
-  font-size: 12px;
+body {
+  width: 500px;
+  max-height: 800px;
+  font-family: "Inter", Arial, sans-serif;
   margin: 0;
-  padding: 0px 2px;
-}
-
-.textbox:focus {
-  outline: 0;
-  border-color: #66afe9;
-}
-
-.bookmarks {
-  margin: 5px 5px;
-  padding: 3px;
-}
-
-.bookmark {
+  background-color: var(--background-color);
   display: flex;
-  border-bottom-color: #00254d;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-radius: 0.8rem;
-  padding: 3px;
-  padding-bottom: 7px;
-  margin-bottom: 7px;
+  flex-direction: column;
+  align-items: center;
 }
 
-.bookmark-title {
-  padding-left: 2px;
+textarea {
+  color: white;
+  width: 100%;
+  min-height: 5rem;
+  background-color: var(--background-color-focus);
+  border: none;
 }
 
-.bookmark-controls img {
-  margin: 0 4px;
-  width: 18px;
-  height: 18px;
+button {
+  border-radius: 15px;
+  height: 2rem;
+  width: 15rem;
+  align-self: center;
+  border: none;
+  color: white;
+  background-color: var(--main-color-darker);
+}
+
+button:hover {
   cursor: pointer;
+  background-color: var(--main-color);
 }
 
-.bookmark-controls {
-  flex: auto;
-  text-align: right;
+.result {
+  margin-top: 20px;
+  align-self: flex-start;
+  width: 100%;
+}
+
+.section-item {
+  display: flex;
+  padding: 10px;
+  background-color: var(--background-color);
+  color: white
+}
+
+.section-item:hover {
+  background-color: var(--background-color-focus);
+}
+
+
+.section-order-number {
+  width: 1fr;
+  height: 100%;
+  margin: 0 10px 0 0;
+}
+
+.section-values {
+  width: 5fr;
+  display: flex;
+  flex-direction: column;
+}
+
+.section-name {}
+
+.section-time-stamp {
+  font-size: small;
+  padding: 2px;
+  color: var(--main-color);
+}
+
+/* Default checkbox style */
+input[type="checkbox"] {
+  width: 1.5em;
+  height: 1.5em;
+  appearance: none;
+  /* Remove default styling */
+  border: 2px solid #3EA6F4;
+  /* Larger border with color #3EA6F4 */
+  background-color: transparent;
+  /* Transparent fill color */
+  cursor: pointer;
+  /* Pointer cursor on hover */
+  margin: 8px 10px 0 0;
+}
+
+/* Checkbox checked state */
+input[type="checkbox"]:checked {
+  background-color: #3EA6F4;
+  /* Fill color when checked */
+  border-color: #3EA6F4;
+  /* Maintain the border color */
+}
+
+/* Checkbox checked with a checkmark */
+input[type="checkbox"]:checked::after {
+  content: '';
+  display: block;
+  width: 0.3em;
+  height: 0.6em;
+  border: solid #0F0F0F;
+  border-width: 0 0.2em 0.2em 0;
+  transform: rotate(45deg);
+  margin-left: 0.4em;
+  margin-top: 0.2em;
 }

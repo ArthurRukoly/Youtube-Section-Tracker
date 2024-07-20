@@ -31,7 +31,7 @@
       "24": "assets/ext-icon.png",
       "32": "assets/ext-icon.png"
     },
-    "default_title": "My YT Bookmarks",
+    "default_title": "Youtube Section Tracker",
     "default_popup": "popup.html"
   },
   "manifest_version": 3
