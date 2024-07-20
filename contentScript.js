@@ -1,25 +1,20 @@
 (() => {
   // Holds the current video ID
-
   let currentVideo = "";
 
   // Keeps track of processed sections to avoid duplicate processing
-
   const processedSections = new Set();
 
   // Listen for messages from the background script
-
   chrome.runtime.onMessage.addListener((obj, sender, response) => {
     const { type, videoId } = obj;
 
     if (type === "NEW") {
       currentVideo = videoId;
-      newVideoLoaded();
     }
   });
 
   // Function to handle new video load
-
   const newVideoLoaded = () => {
     const contentDiv = document.getElementById("content");
     if (contentDiv) {
@@ -27,36 +22,31 @@
         "ytd-macro-markers-list-item-renderer"
       );
 
-      // Loop trought all of sections in section tab
-
+      // Loop through all sections in the section tab
       Array.from(sections).forEach((section, index) => {
         if (processedSections.has(section)) {
           return; // Skip sections that have already been processed
         }
         processedSections.add(section);
 
-        // Generates a kay, so it could be saved further in localstorage
-        // currentVideo - id of video, being used to saved for each video
+        // Generates a key, so it could be saved further in local storage
+        // currentVideo - id of video, being used to save for each video
         // Index - is section index
-
         const sectionKey = `${currentVideo}-section-${index}`;
 
         // Create a checkbox if it doesn't already exist
-
         if (!section.querySelector(".viewed-checkbox")) {
           const checkbox = document.createElement("input");
           checkbox.type = "checkbox";
           checkbox.className = "viewed-checkbox";
 
           // Check if the section was previously viewed
-
           if (localStorage.getItem(sectionKey) === "viewed") {
             checkbox.checked = true;
             section.classList.add("viewed");
           }
 
           // Add an event listener to handle checkbox state change
-
           checkbox.addEventListener("change", () => {
             if (checkbox.checked) {
               localStorage.setItem(sectionKey, "viewed");
@@ -68,31 +58,27 @@
             logCheckedPercentage();
           });
 
-          // Create a wrapper div to hold the checkbox and section, so chechbox would appear
+          // Create a wrapper div to hold the checkbox and section, so checkbox would appear
           // on the left
-
           const wrapper = document.createElement("div");
           wrapper.className = "section-wrapper";
           section.parentNode.insertBefore(wrapper, section);
           wrapper.appendChild(checkbox);
           wrapper.appendChild(section);
 
-          // Calculate the Percentage of task completed
-
+          // Calculate the percentage of task completed
           logCheckedPercentage();
         }
       });
     }
   };
 
-  // Calucalte and displays the percentage of completed tasks
-
+  // Calculate and display the percentage of completed tasks
   const logCheckedPercentage = () => {
     const checkboxes = document.querySelectorAll(".viewed-checkbox");
 
     // There are always 4 extra checkboxes
     // Idk why
-
     const totalCheckboxes = checkboxes.length - 4;
     const checkedCheckboxes = Array.from(checkboxes).filter(
       (cb) => cb.checked
@@ -122,9 +108,10 @@
     }
   };
 
+  // Create and append styles
   const style = document.createElement("style");
   style.innerHTML = `
-    .percentageDisplay{
+    .percentageDisplay {
       margin: 10px 10px 10px 10px;
       color: white;
     }
@@ -167,35 +154,19 @@
       margin-left: 0.4em;
       margin-top: 0.2em;
     }
-
   `;
   document.head.appendChild(style);
 
-  // Debounce function to limit the rate at which newVideoLoaded is called
+  // Function to handle the key combination for triggering newVideoLoaded
+  const handleKeyPress = (event) => {
+    if (event.ctrlKey && event.shiftKey && event.key === "Y") {
+      newVideoLoaded();
+    }
+  };
 
-  function debounce(func, wait) {
-    let timeout;
-    return function (...args) {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func.apply(this, args), wait);
-    };
-  }
+  // Add event listener for keydown event
+  document.addEventListener("keydown", handleKeyPress);
 
-  // Debounced version of newVideoLoaded to handle rapid calls
-
-  const debouncedNewVideoLoaded = debounce(() => {
-    observer.disconnect();
-    newVideoLoaded();
-    observer.observe(document.body, { childList: true, subtree: true });
-  }, 500);
-
-  debouncedNewVideoLoaded();
-
-  // Observer to monitor changes in the DOM
-
-  const observer = new MutationObserver(() => {
-    debouncedNewVideoLoaded();
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
+  // Initial call to set up the script
+  newVideoLoaded();
 })();
