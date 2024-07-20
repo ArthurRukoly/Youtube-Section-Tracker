@@ -1,0 +1,53 @@
+.percentageDisplay {
+    margin: 10px 10px 10px 10px;
+    color: white;
+}
+
+.viewed-checkbox {
+    margin: 0 5px 0 15px;
+}
+
+.section-wrapper {
+    min-width: 25%;
+    display: flex;
+    align-items: center;
+}
+
+ytd-macro-markers-list-item-renderer {
+    flex-grow: 1;
+}
+
+/* Default checkbox style */
+input[type="checkbox"] {
+    width: 1.5em;
+    height: 1.5em;
+    appearance: none;
+    /* Remove default styling */
+    border: 2px solid #3EA6F4;
+    /* Larger border with color #3EA6F4 */
+    background-color: transparent;
+    /* Transparent fill color */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+}
+
+/* Checkbox checked state */
+input[type="checkbox"]:checked {
+    background-color: #3EA6F4;
+    /* Fill color when checked */
+    border-color: #3EA6F4;
+    /* Maintain the border color */
+}
+
+/* Checkbox checked with a checkmark */
+input[type="checkbox"]:checked::after {
+    content: '';
+    display: block;
+    width: 0.3em;
+    height: 0.6em;
+    border: solid #0F0F0F;
+    border-width: 0 0.2em 0.2em 0;
+    transform: rotate(45deg);
+    margin-left: 0.4em;
+    margin-top: 0.2em;
+}
