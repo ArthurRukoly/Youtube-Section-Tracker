@@ -3,9 +3,8 @@ let videoId; // Declare a global variable
 document.addEventListener("DOMContentLoaded", () => {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     const tab = tabs[0];
-    videoId = tab.id; // Assign the URL to the global variable
-    console.log("URL:", videoId);
-
+    videoId = tab.url.match(/[?&]v=([^&]+)/)[1]; // Assign the URL to the global variable
+    console.log(videoId);
     // Load and display result using the obtained URL
     const storedResult = loadStoredResult(videoId);
     displayResult(storedResult, videoId);
@@ -23,7 +22,7 @@ function processText(videoId) {
   let orderNumber = 1;
 
   lines.forEach((line) => {
-    const match = line.match(/^(\d{1,2}:\d{2})\s(.+)/);
+    const match = line.match(/^(\d{1,2}:\d{2}:\d{2}|\d{1,2}:\d{2})\s(.+)/);
     if (match) {
       const timeStamp = match[1];
       const name = match[2];
